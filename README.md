@@ -22,7 +22,9 @@
 ## Arquitetura
 
 ```mermaid
+
 flowchart LR
+
     subgraph PropostaService [PropostaService]
       A1[API (Minimal APIs)]
       A2[Application\n(IPropostaUseCases)]

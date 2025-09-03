@@ -29,12 +29,15 @@
 ### Diagrama de alto nível
 
 ```mermaid
+
 flowchart TD
+
 Driver[HTTP (Minimal API)] --> IP[I* Ports (UseCases)]
 IP --> Domain[Domínio]
 IP --> OP[O* Ports (Repo/Gateway)]
 OP --> EF[EF Core]
 OP --> HTTP[HttpClient -> PropostaService]
+
 ````
 
 ## Camadas e Responsabilidades
