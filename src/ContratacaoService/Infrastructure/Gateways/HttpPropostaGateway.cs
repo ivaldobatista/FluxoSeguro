@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-using ContratacaoService.Application.Ports;
-using System.Text.Json;
+﻿using ContratacaoService.Application.Ports;
 
 namespace ContratacaoService.Infrastructure.Gateways;
 

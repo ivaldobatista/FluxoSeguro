@@ -27,7 +27,7 @@ public class PropostasEndpointTests : IClassFixture<SqliteWebAppFactory>
 
         var payload = await resp.Content.ReadFromJsonAsync<Dictionary<string, JsonElement>>();
         payload.Should().NotBeNull();
-        payload!.Should().ContainKey("id"); 
+        payload!.Should().ContainKey("id");
 
         var idStr = payload["id"].GetString();
         Guid.TryParse(idStr, out var id).Should().BeTrue();

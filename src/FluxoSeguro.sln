@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContratacaoService", "Contr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropostaService.Tests", "..\tests\PropostaService.Tests\PropostaService.Tests.csproj", "{ECA273B2-636B-4789-A94C-5713E43120BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContratacaoService.Tests", "..\tests\ContratacaoService.Tests\ContratacaoService.Tests.csproj", "{333142DC-AD44-4837-9D38-1D191AE1AE7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ECA273B2-636B-4789-A94C-5713E43120BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECA273B2-636B-4789-A94C-5713E43120BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECA273B2-636B-4789-A94C-5713E43120BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333142DC-AD44-4837-9D38-1D191AE1AE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333142DC-AD44-4837-9D38-1D191AE1AE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333142DC-AD44-4837-9D38-1D191AE1AE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333142DC-AD44-4837-9D38-1D191AE1AE7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

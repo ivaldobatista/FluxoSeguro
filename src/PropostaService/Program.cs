@@ -19,7 +19,7 @@ builder.Services.AddDbContext<PropostaDbContext>(opt =>
 builder.Services.AddScoped<IPropostaRepository, PropostaRepository>();
 builder.Services.AddScoped<IPropostaUseCases, PropostaUseCases>();
 
-builder.Services.AddEndpointsApiExplorer(); 
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {

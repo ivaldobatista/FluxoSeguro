@@ -4,7 +4,7 @@ using PropostaService.Domain.Entities;
 
 namespace PropostaService.Application.UseCases;
 
-public class PropostaUseCases: IPropostaUseCases
+public class PropostaUseCases : IPropostaUseCases
 {
     private readonly IPropostaRepository _repository;
 
