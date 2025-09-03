@@ -38,7 +38,7 @@ IP --> OP[O* Ports (Repo/Gateway)]
 OP --> EF[EF Core]
 OP --> HTTP[HttpClient -> PropostaService]
 
-````
+```
 
 ## Camadas e Responsabilidades
 

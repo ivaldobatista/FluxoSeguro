@@ -46,7 +46,8 @@ flowchart LR
 
     B5 <-- HTTP REST --> A1
     B2 --> B5
-````
+
+```
 
 ## Pré-requisitos
 
