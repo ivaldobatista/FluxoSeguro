@@ -1,9 +1,5 @@
 ﻿namespace PropostaService.Domain.Entities;
 
-/// <summary>
-/// Representa a entidade Agregada de Proposta.
-/// Contém as regras de negócio centrais para uma proposta de seguro.
-/// </summary>
 public class Proposta
 {
     public Guid Id { get; private set; }
@@ -12,7 +8,6 @@ public class Proposta
     public PropostaStatus Status { get; private set; }
     public DateTime DataCriacao { get; private set; }
 
-    // Construtor para EF Core
     private Proposta() { }
 
     public Proposta(string nomeProponente, decimal valor)
@@ -30,9 +25,6 @@ public class Proposta
         DataCriacao = DateTime.UtcNow;
     }
 
-    /// <summary>
-    /// Altera o status da proposta, garantindo as transições válidas.
-    /// </summary>
     public void AlterarStatus(PropostaStatus novoStatus)
     {
         // Regra de negócio: uma vez Aprovada ou Rejeitada, não pode ser alterada.

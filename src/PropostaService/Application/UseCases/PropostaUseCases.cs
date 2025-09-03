@@ -1,13 +1,14 @@
 ﻿using PropostaService.Application.Interfaces;
+using PropostaService.Application.Ports;
 using PropostaService.Domain.Entities;
 
-namespace PropostaService.Application.Services;
+namespace PropostaService.Application.UseCases;
 
-public class PropostaAppService
+public class PropostaUseCases: IPropostaUseCases
 {
     private readonly IPropostaRepository _repository;
 
-    public PropostaAppService(IPropostaRepository repository) => _repository = repository;
+    public PropostaUseCases(IPropostaRepository repository) => _repository = repository;
 
     public async Task<Guid> CriarPropostaAsync(string nome, decimal valor, CancellationToken ct = default)
     {

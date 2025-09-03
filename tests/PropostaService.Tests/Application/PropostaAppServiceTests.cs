@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using PropostaService.Application.Services;
+using PropostaService.Application.UseCases;
 using PropostaService.Infrastructure;
 using PropostaService.Infrastructure.Repositories;
 
@@ -9,7 +9,7 @@ namespace PropostaService.Tests.Application;
 
 public class PropostaAppServiceTests
 {
-    private static PropostaAppService BuildService()
+    private static PropostaUseCases BuildService()
     {
         var conn = new SqliteConnection("DataSource=:memory:");
         conn.Open();
@@ -22,7 +22,7 @@ public class PropostaAppServiceTests
         ctx.Database.EnsureCreated();
 
         var repo = new PropostaRepository(ctx);
-        return new PropostaAppService(repo);
+        return new PropostaUseCases(repo);
     }
 
     [Fact]
