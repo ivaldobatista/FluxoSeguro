@@ -15,6 +15,9 @@ public sealed class ContratacaoRepository : IContratacaoRepository
         await _ctx.SaveChangesAsync(ct);
     }
 
-    public async Task<IReadOnlyList<Contratacao>> GetAllAsync(CancellationToken ct = default) =>
-        await _ctx.Contratacoes.AsNoTracking().OrderByDescending(x => x.DataContratacao).ToListAsync(ct);
+    public async Task<IReadOnlyList<Contratacao>> GetAllAsync(CancellationToken ct = default)
+    {
+        var data = await _ctx.Contratacoes.AsNoTracking().ToListAsync(ct);
+        return data.OrderByDescending(x => x.DataContratacao).ToList(); 
+    }
 }
