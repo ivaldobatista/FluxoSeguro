@@ -31,12 +31,11 @@
 ```mermaid
 
 flowchart TD
-
-Driver[HTTP (Minimal API)] --> IP[I* Ports (UseCases)]
-IP --> Domain[Domínio]
-IP --> OP[O* Ports (Repo/Gateway)]
-OP --> EF[EF Core]
-OP --> HTTP[HttpClient -> PropostaService]
+  Driver["HTTP (Minimal API)"] --> IP["Input Ports (UseCases)"]
+  IP --> Domain["Domínio"]
+  IP --> OP["Output Ports (Repo/Gateway)"]
+  OP --> EF["EF Core"]
+  OP --> HTTP["HttpClient → PropostaService"]
 
 ```
 
