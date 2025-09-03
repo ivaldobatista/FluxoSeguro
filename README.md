@@ -24,28 +24,27 @@
 ```mermaid
 
 flowchart LR
+  subgraph PropostaService
+    A1["API (Minimal APIs)"]
+    A2["Application\n(IPropostaUseCases)"]
+    A3["Domain\n(Proposta, Regras)"]
+    A4["Infrastructure\n(EF Core Repo)"]
+    A1 --> A2 --> A3
+    A2 --> A4 --> DB1["SQLite"]
+  end
 
-    subgraph PropostaService [PropostaService]
-      A1[API (Minimal APIs)]
-      A2[Application\n(IPropostaUseCases)]
-      A3[Domain\n(Proposta, Regras)]
-      A4[Infrastructure\n(EF Core Repo)]
-      A1 --> A2 --> A3
-      A2 --> A4 --> DB1[(SQLite)]
-    end
+  subgraph ContratacaoService
+    B1["API (Minimal APIs)"]
+    B2["Application\n(IContratacaoUseCases)"]
+    B3["Domain\n(Contratacao)"]
+    B4["Infrastructure\n(EF Repo)"]
+    B5["Infrastructure\n(HttpPropostaGateway)"]
+    B1 --> B2 --> B3
+    B2 --> B4 --> DB2["SQLite"]
+  end
 
-    subgraph ContratacaoService [ContratacaoService]
-      B1[API (Minimal APIs)]
-      B2[Application\n(IContratacaoUseCases)]
-      B3[Domain\n(Contratacao)]
-      B4[Infrastructure\n(EF Repo)]
-      B5[Infrastructure\n(HttpPropostaGateway)]
-      B1 --> B2 --> B3
-      B2 --> B4 --> DB2[(SQLite)]
-    end
-
-    B5 <-- HTTP REST --> A1
-    B2 --> B5
+  B5 <-- "HTTP REST" --> A1
+  B2 --> B5
 
 ```
 
