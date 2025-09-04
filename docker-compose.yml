@@ -1,6 +1,16 @@
 name: fluxo-seguro
 
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: fluxoseguro-rabbit
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # UI de management
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
   proposta:
     build:
       context: ./src                

@@ -5,6 +5,7 @@ using PropostaService.Application.Ports;
 using PropostaService.Application.UseCases;
 using PropostaService.Contracts;
 using PropostaService.Infrastructure;
+using PropostaService.Infrastructure.Messaging;
 using PropostaService.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,18 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "PropostaService", Version = "v1" });
 });
 
+builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection("RabbitMQ"));
+
+if (builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddSingleton<IEventPublisher, NoOpEventPublisher>();
+}
+else
+{
+    builder.Services.AddSingleton<IEventPublisher, RabbitMqEventPublisher>();
+}
+
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -42,17 +55,29 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
 }
 
 app.MapPost("/propostas",
-    async Task<IResult> (IPropostaUseCases uc, CreatePropostaDto body, CancellationToken ct) =>
+    async Task<IResult>
+    (IPropostaUseCases uc, IEventPublisher bus, CreatePropostaDto body, CancellationToken ct) =>
     {
         if (body is null || string.IsNullOrWhiteSpace(body.NomeCliente) || body.Valor <= 0)
             return Results.BadRequest("Payload inválido. Informe NomeCliente e Valor > 0.");
 
         var id = await uc.CriarPropostaAsync(body.NomeCliente!, body.Valor, ct);
-        return Results.Created($"/propostas/{id}", new { id }); // camelCase no JSON
+
+        var created = new PropostaCreatedEvent(
+            PropostaId: id,
+            NomeProponente: body.NomeCliente!,
+            Valor: body.Valor,
+            DataCriacao: DateTime.UtcNow
+        );
+
+        await bus.PublishAsync("proposta.created", created, ct);
+
+        return Results.Created($"/propostas/{id}", new { id });
     })
     .WithTags("Propostas")
     .Produces(StatusCodes.Status201Created)
     .Produces(StatusCodes.Status400BadRequest);
+
 
 app.MapGet("/propostas",
     async Task<IResult> (IPropostaUseCases uc, CancellationToken ct) =>
@@ -86,3 +111,9 @@ app.MapPut("/propostas/{id:guid}/status",
 app.Run();
 
 public partial class Program { }
+
+public sealed class NoOpEventPublisher : IEventPublisher
+{
+    public Task PublishAsync<T>(string routingKey, T message, CancellationToken ct = default)
+        => Task.CompletedTask;
+}
