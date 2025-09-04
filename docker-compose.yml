@@ -1,46 +1,34 @@
-version: "3.9"
-
 name: fluxo-seguro
 
 services:
   proposta:
     build:
-      context: ./src/PropostaService
-      dockerfile: Dockerfile
+      context: ./src                
+      dockerfile: PropostaService/Dockerfile
     container_name: PropostaService
+    user: "0:0"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
     ports:
-      - "5024:8080"   # HTTP
-      - "5025:8081"   # HTTPS (opcional na sua imagem)
+      - "5024:8080"
     volumes:
       - proposta_data:/app/data
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8080/healthz || exit 1"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
 
   contratacao:
     build:
-      context: ./src/ContratacaoService
-      dockerfile: Dockerfile
+      context: ./src                
+      dockerfile: ContratacaoService/Dockerfile
     container_name: ContratacaoService
+    user: "0:0"
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       PropostaService__BaseUrl: "http://proposta:8080"
     ports:
       - "5034:8080"
-      - "5035:8081"
     depends_on:
       - proposta
     volumes:
       - contratacao_data:/app/data
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8080/healthz || exit 1"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
 
 volumes:
   proposta_data:
